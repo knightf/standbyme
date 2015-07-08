@@ -1,5 +1,5 @@
 (function($){
 	$.fn.standbyme = function(){
-		console.log('plugin entrance');
+		console.log(this);
 	}
 }(jQuery));
