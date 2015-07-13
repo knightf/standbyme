@@ -9,18 +9,18 @@ module.exports = function(grunt){
 				},
 				files: [
 					'./src/index.html',
-					'./src/js/standbyme.js'
+					'./src/js/standbyme.js',
+					'./src/css/*.css',
 				],
 			}
 		},
-		
+
 		connect: {
 			server: {
 				options: {
 					port: 8080,
-					keepalive: true,
+					livereload: 35729,
 					base: './src',
-					hostname: '0.0.0.0',
 				},
 			},
 		},

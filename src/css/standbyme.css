@@ -1,0 +1,8 @@
+.standbyme-hidden{
+	visibility: hidden;
+}
+
+.standbyme.wrapper{
+	position: fixed;
+	top: 0;
+}
