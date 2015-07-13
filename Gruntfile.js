@@ -2,6 +2,18 @@ module.exports = function(grunt){
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 	
+		watch: {
+			livereload: {
+				options: {
+					livereload: true,
+				},
+				files: [
+					'./src/index.html',
+					'./src/js/standbyme.js'
+				],
+			}
+		},
+		
 		connect: {
 			server: {
 				options: {
