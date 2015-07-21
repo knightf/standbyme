@@ -53,6 +53,12 @@
 		ele.parentOffset = ele.getSize(ele.parentEle);
 
 		//adjust the wrapper
+		var wrapper = document.getElementById('standbymeWrapper-' + ele.id);
+		if(wrapper){
+			var style = ele.ele.currentStyle || window.getComputedStyle(ele.ele),
+				marginLeft = parseFloat(style.marginLeft);
+			wrapper.style.left = ele.offset.left - marginLeft;
+		}
 	}
 
 	StandByMe.prototype.getSize = function(ele){
@@ -69,11 +75,13 @@
 	    
 	    var clientTop = docElem.clientTop || body.clientTop || 0;
 	    var clientLeft = docElem.clientLeft || body.clientLeft || 0;
+
+	    var style = ele.currentStyle || window.getComputedStyle(ele);
 	    
 	    var top  = clientRect.top + scrollTop - clientTop,
 	    	left = clientRect.left + scrollLeft - clientLeft,
-	    	width = parseFloat(ele.style.marginLeft + boxWidth + ele.style.marginRight),
-			height = parseFloat(ele.style.marginTop + boxHeight + ele.style.marginBottom);
+	    	width = parseFloat(parseFloat(style.marginLeft) + boxWidth + parseFloat(style.marginRight)),
+			height = parseFloat(parseFloat(style.marginTop) + boxHeight + parseFloat(style.marginBottom));
 
 		return {
 			'top' : top,
