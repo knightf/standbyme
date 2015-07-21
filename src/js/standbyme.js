@@ -7,12 +7,10 @@
 
 			e.id = i++;
 			e.ele = element;
-			e.jQueryObj = $(element);
-			e.offset = e.jQueryObj.offset();
+			e.offset = e.getSize(e.ele);
 			e.wrapperFlag = false;
 			e.parentEle = e.ele.parentNode;
-			e.parentOffset = $(e.parentEle).offset();
-			e.parentBottom = e.parentOffset.top + parseFloat(e.getSize(e.parentEle).height);
+			e.parentOffset = e.getSize(e.parentEle);
 
 			e.init();
 		}
@@ -24,14 +22,15 @@
 	StandByMe.prototype.init = function(){
 		var e = this;
 		//bind events
-		$(window).on('scroll.standbyme.id' + e.id, {ele : e}, e.onScroll);	
+		$(window).on('scroll.standbyme.id' + e.id, {ele : e}, e.onScroll); //listen to scroll
+		$(window).on('resize.standbyme.id' + e.id, {ele : e}, e.onResize); //listen to resize
 	}
 
 	StandByMe.prototype.onScroll = function(event){
 		var ele = event.data.ele;
 
 		//check if the element is out of the boundary
-		if(((window.scrollY - ele.offset.top) > 0) && ((window.scrollY + parseFloat(ele.getSize().height) < ele.parentBottom))){
+		if(((window.scrollY - ele.offset.top) > 0) && ((window.scrollY + parseFloat(ele.getSize().height) < ele.parentOffset.bottom))){
 			//off the screen
 			if(!ele.wrapperFlag){
 				//if it is not wrapped, wrap it
@@ -46,9 +45,44 @@
 		}
 	}
 
+	StandByMe.prototype.onResize = function(event){
+		var ele = event.data.ele;
+
+		//fix the offset
+		ele.offset = ele.getSize(ele.ele);
+		ele.parentOffset = ele.getSize(ele.parentEle);
+
+		//adjust the wrapper
+	}
+
 	StandByMe.prototype.getSize = function(ele){
-		var ele = ele || this.ele;
-		return ele.getBoundingClientRect();
+		var ele = ele || this.ele,
+			clientRect = ele.getBoundingClientRect(),
+			boxWidth = clientRect.right - clientRect.left,
+			boxHeight = clientRect.bottom - clientRect.top;
+	    
+	    var body = document.body;
+	    var docElem = document.documentElement;
+	    
+	    var scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+	    var scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
+	    
+	    var clientTop = docElem.clientTop || body.clientTop || 0;
+	    var clientLeft = docElem.clientLeft || body.clientLeft || 0;
+	    
+	    var top  = clientRect.top + scrollTop - clientTop,
+	    	left = clientRect.left + scrollLeft - clientLeft,
+	    	width = parseFloat(ele.style.marginLeft + boxWidth + ele.style.marginRight),
+			height = parseFloat(ele.style.marginTop + boxHeight + ele.style.marginBottom);
+
+		return {
+			'top' : top,
+			'left' : left,
+			'width' : width,
+			'height' : height,
+			'right' : left + width,
+			'bottom' : top + height,
+		};
 	}
 
 	StandByMe.prototype.getWrapper = function(){
@@ -56,8 +90,8 @@
 			wrapper = document.createElement('div');
 
 		//assign the default class
-		wrapper.className = 'standbyme wrapper';
-		wrapper.id = 'standbymeWrapper' + e.id;
+		wrapper.className = 'standbyme-wrapper';
+		wrapper.id = 'standbymeWrapper-' + e.id;
 		//assign the right size
 		//assign width and height
 		var size = e.getSize();
@@ -87,7 +121,7 @@
 
 	StandByMe.prototype.unwrap = function(){
 		var e = this;
-			wrapper = document.getElementById('standbymeWrapper' + e.id);
+			wrapper = document.getElementById('standbymeWrapper-' + e.id);
 		
 		//remove the patch class on the element
 		e.ele.className = e.ele.className.replace(' standbyme-hidden', '');
