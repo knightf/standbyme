@@ -40,7 +40,7 @@
 		var ele = event.data.ele;
 
 		//check if the element is out of the viewport
-		if((window.scrollY - ele.offset.top) > 0){
+		if((window.pageYOffset - ele.offset.top) > 0){
 			//off the viewport
 			if(!ele.wrapperFlag){
 				//if it is not wrapped, wrap it
@@ -55,7 +55,7 @@
 		}
 
 		//check if the element should be at the bottom of its parent
-		if((window.scrollY + ele.offset.height) > ele.parentOffset.bottom){
+		if((window.pageYOffset + ele.offset.height) > ele.parentOffset.bottom){
 			//should be
 			if(!ele.bottomFlag && ele.wrapperFlag){
 				//not at bottom, let it stay
@@ -102,8 +102,8 @@
 	    var clientTop = docElem.clientTop || body.clientTop || 0;
 	    var clientLeft = docElem.clientLeft || body.clientLeft || 0;
 
-	    var style = ele.currentStyle || window.getComputedStyle(ele);
-	    
+	    var style = window.getComputedStyle(ele) || ele.currentStyle;
+
 	    var top  = clientRect.top + scrollTop - clientTop,
 	    	left = clientRect.left + scrollLeft - clientLeft,
 	    	width = parseFloat(parseFloat(style.marginLeft) + boxWidth + parseFloat(style.marginRight)),

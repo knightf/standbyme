@@ -6,6 +6,9 @@ Say you have 2 columns of content. One of them is an article and the other one i
 # Usage
 ``$('.metabox').standbyme();``
 
+# Compatibility
+Chrome, Firefox, Safari, IE 11
+
 # Feature Design
 ## The wrapper
 A wrapper is used to fixe the element's position. The original element's visibility is set to  hidden so that it still pocesses its space in the document. Yet the wrapper's position is set to fixed so that it can be controlled with absolute pixel value.
