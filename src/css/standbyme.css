@@ -6,3 +6,7 @@
 	position: fixed;
 	top: 0;
 }
+
+.standbyme-wrapper-bottom{
+	position: absolute;
+}

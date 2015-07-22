@@ -1,0 +1,32 @@
+body, html{
+	padding: 0px;
+	margin: 0px;
+}
+
+.wrapper{
+	width: 1000px;
+	margin: auto;
+}
+
+.block{
+	padding: 5px;
+	margin: 5px;
+	background-color: Gainsboro;
+}
+
+.sidebar,
+.content{
+	float: left;
+}
+
+.sidebar{
+	width: 180px;
+}
+
+.content{
+	width: 780px;
+}
+
+.spaceholder{
+	height: 1200px;
+}
