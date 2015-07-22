@@ -1,5 +1,10 @@
 # standbyme
-a jQuery plugin to keep elements fixed in viewport when scrolling
+It is a jQuery plugin to keep elements fixed in viewport when scrolling.
+
+Say you have 2 columns of content. One of them is an article and the other one is a metabox. Some useful information in that metabox is important and you want it to stay in the window rather than scrolled out. And this small plugin may save you a bit of time.
+
+# Usage
+``$('.metabox').standbyme();``
 
 # Feature Design
 ## The wrapper
