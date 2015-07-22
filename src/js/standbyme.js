@@ -1,3 +1,9 @@
+/**
+ * Standbyme plugin
+ * Version: 0.1
+ * Author: Eric Han
+ **/
+
 (function($){
 	var StandByMe = (function(){
 		var i = 0;

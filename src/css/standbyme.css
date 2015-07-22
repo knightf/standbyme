@@ -1,10 +1,18 @@
+/**
+ * Standbyme plugin
+ * Version: 0.1
+ * Author: Eric Han
+ **/
+
 .standbyme-hidden{
 	visibility: hidden;
 }
 
+
 .standbyme-wrapper{
 	position: fixed;
 	top: 0;
+	
 }
 
 .standbyme-wrapper-bottom{

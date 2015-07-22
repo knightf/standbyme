@@ -4,12 +4,12 @@ body, html{
 }
 
 .wrapper{
-	width: 1000px;
+	width: 800px;
 	margin: auto;
 }
 
 .block{
-	padding: 5px;
+	padding: 5px 10px 5px 10px;
 	margin: 5px;
 	background-color: Gainsboro;
 }
@@ -20,11 +20,11 @@ body, html{
 }
 
 .sidebar{
-	width: 180px;
+	width: 170px;
 }
 
 .content{
-	width: 780px;
+	width: 570px;
 }
 
 .spaceholder{

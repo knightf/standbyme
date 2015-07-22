@@ -1,19 +1,27 @@
 # standbyme
-a jQuery plugin to keep elements fixed when scrolling
+a jQuery plugin to keep elements fixed in viewport when scrolling
 
-# Structure design
-To start, record the initial y coordinate value of the element.
+# Feature Design
+## The wrapper
+A wrapper is used to fixe the element's position. The original element's visibility is set to  hidden so that it still pocesses its space in the document. Yet the wrapper's position is set to fixed so that it can be controlled with absolute pixel value.
 
-Bind the event of scrolling, check if it has been scrolled out of the screen.
+## To record the initial postition
+A function that calculate the element's position in the whole document is adopted to get its top, left, width and hight(including margin), so all the information about this box can be accessed.
 
-## For the scroll event
-check if it is already out of the screen by flag:
+This function's reference is [this article](http://javascript.info/tutorial/coordinates). Basically, the absolute offset of one element is its own RoundRect object's value, adjusted with the scrolled pixels and the offset of &lt;html&gt; or &lt;body&gt;.
 
-if true then do nothing;
+## To change the postition record dynamically
+By adding custom events on the resize event, the element's offset and its parent's offset will change dynamically. More advanced feature will be added in later versions.
 
-if false, then check if it is about to get out of the screen:
+## To fix the element in the screen
+By adding listeners to scroll event, 2 main checking process will be triggered when the page is being scrolled.
 
-	if true, add a wrapper to it and the wrapper will have fixed postion so that it will always stays at the top of the page, and set the flag of this element to be outofscreen.
+### Whether to wrap
+So if the page has not been scrolled to a place below the top of the element, is should not be wrapped. Otherwise, it should be wrapped.
 
-	if false, then do nothing.
+### Whether to stay at the bottom of parent element
+If the page has been scrolled to a place below the bottom of the parent element, the target element should stay. Otherwise, it should be displayed in the viewport.
 
+# Future Work
+## Multiple elements
+It will be great if we can have multiple side metabox at one time, and each one of them has their own start point and end point relative to the main content.
